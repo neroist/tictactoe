@@ -225,7 +225,6 @@ proc play() =
     echo "You won!"
   else:
     echo "Draw!"
-#          <label for="depth">AI Max Depth: </label>
-#          <input type="number" name="depth" min="1" max="20" value="10" required>
+
 when isMainModule:
   play()
