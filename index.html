@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Tic Tac Toe</title>
+
+  <meta name="keywords" content="tictactoe,ai,minimax,science,play,game">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play Tic Tac Toe against an AI">
+  <meta charset="utf-8">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+      <button class="button-option"></button>
+    </div>
+    <div class="controls">
+      <button id="restart" onclick="restart()">Restart</button>
+
+      <label for="depth" id="depthlabel">AI Max Depth: </label>
+      <input type="number" id="depth" name="depth" min="1" max="8" value="2" required>
+    </div>
+  </div>
+    
+  <!-- Script -->
+  <script src="confetti.min.js"></script>
+  <script src="script.min.js"></script>
+  <script>
+    // no semicolons what !!
+
+    var depth = document.getElementById("depth");
+    var restartButton = document.getElementById("restart");
+
+    document.addEventListener("keypress", (e) => {
+      e = e || window.event;
+      let val = Number(depth.value); // get current value of spinbox as a Number
+
+      if (e.key === "=") { // plus key
+        if ((val + 1) > 8) return; // if incrementing leads to an invalid value, return
+
+        depth.value = (val + 1).toString(); // inc value
+      } else if (e.key === "-") { 
+        if ((val - 1) < 1) return;
+
+        depth.value = (val - 1).toString(); // dec value
+      } else if (e.key === "r") {
+        restartButton.click();
+      }
+    });
+  </script>
+</body>
+</html>
