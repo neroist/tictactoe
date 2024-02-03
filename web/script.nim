@@ -99,13 +99,10 @@ proc minimax(b: Board = board, depth: int = 0, isMaximizing: bool = true, maxDep
           min_eval = min(min_eval, eval)
     return min_eval
 
-proc getOptimalMove(b = board, maxDepth: int, mark = computer): tuple[row, col: int] = 
+proc getOptimalMove(b = board, maxDepth: int): tuple[row, col: int] =   
   var 
     bo = b
-    pcI = computer
     maxscore: float = -Inf
-
-  computer = mark
 
   for row in 0..2:
     for col in 0..2:
@@ -122,8 +119,6 @@ proc getOptimalMove(b = board, maxDepth: int, mark = computer): tuple[row, col: 
       if thisscore > maxscore:
         maxscore = thisscore # if so, set the move's score as the max
         result = (row, col) # store the move
-  
-  computer = pcI
 
 proc gameEnded(): bool =
   board.checkWin(computer) or board.checkWin(player) or board.checkDraw()
