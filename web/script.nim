@@ -95,7 +95,7 @@ proc minimax(b: Board = board, depth: int = 0, isMaximizing: bool = true, maxDep
           b[row][col] = player # set player move
           let eval = minimax(b, depth + 1, true, max_depth) # run simulation
           b[row][col] = Mark.Empty # undo move
-          
+
           min_eval = min(min_eval, eval)
     return min_eval
 
@@ -232,5 +232,4 @@ for cell in cells:
 
       gameEnd() # check if game ended after ai move
 
-    gameEnd() # check if game ended agter human move
-  
+    gameEnd() # check if game ended after human move
