@@ -3,6 +3,8 @@ import std/terminal
 import std/random
 import std/os
 
+import termui
+
 randomize()
 
 type
@@ -51,7 +53,7 @@ proc emptyCells(b = board): int =
   for row in b:
     for mark in row:
       if mark == Mark.Empty:
-        inc result  
+        inc result
 
 proc checkDraw(b = board): bool =
   ## checks if all cells are filled
@@ -165,22 +167,14 @@ proc printBoard(b = board, clear_screen: bool) =
 
     stdout.write "\n" # we always need a newline after each row
 
-proc input(str: string): string = 
-  ## python-like input function
-
-  stdout.write str
-  stdout.flushFile()
-  stdin.readLine()
-
 proc play() = 
   clear()
 
   echo "Welcome! \n"
-  let max_depth = parseInt input("Max Depth? ")
-  let playerstr = input("Who do you want to play as? ")
-                    .strip()
+  let max_depth = parseInt termuiAsk("Max Depth?")
+  let playerstr = termuiSelect("Who do you want to play as?", @["X", "O"])
                     .toLowerAscii()
-  let gofirst = not parseBool input("Do you want to go first? ")
+  let gofirst = not termuiConfirm("Do you want to go first?")
   
   if playerstr == "x":
     player = Mark.X
@@ -202,8 +196,8 @@ proc play() =
     echo "\n"
 
     let
-      row = parseInt input("What row do you want to play on? ")
-      col = parseInt input("What column do you want to play on? ")
+      row = parseInt termuiAsk("What row do you want to play on?")
+      col = parseInt termuiAsk("What column do you want to play on?")
 
     board[row-1][col-1] = player # set player move
     
