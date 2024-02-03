@@ -48,17 +48,20 @@
     var restartButton = document.getElementById("restart");
 
     document.addEventListener("keypress", (e) => {
-      e = e || window.event;
-      let val = Number(depth.value); // get current value of spinbox as a Number
+      // get current value of spinbox as a Number
+      let val = Number(depth.value); 
 
       if (e.key === "=") { // plus key
-        if ((val + 1) > 8) return; // if incrementing leads to an invalid value, return
-
-        depth.value = (val + 1).toString(); // inc value
+        // if incrementing leads to an invalid value, return
+        if ((val + 1) > 8) return;
+        
+        // inc value
+        depth.value = (val + 1).toString(); 
       } else if (e.key === "-") { 
         if ((val - 1) < 1) return;
 
-        depth.value = (val - 1).toString(); // dec value
+        // dec value
+        depth.value = (val - 1).toString(); 
       } else if (e.key === "r") {
         restartButton.click();
       } /* else if (e.key === "B") {
