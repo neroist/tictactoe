@@ -148,6 +148,14 @@ proc rowcolFromIdx(idx: int): (int, int) =
   else: # all other values are in the third row
     (2, idx - 6)
 
+#proc idxFromRowcol(rowcol: tuple[row, col: int]): int =
+#  if rowcol.row == 0: 
+#    rowcol.col
+#  elif rowcol.row == 1:
+#    rowcol.col + 3
+#  else:
+#    rowcol.col + 6
+
 proc updateInternalBoard(b: var Board = board) = 
   let cells = document.getElementsByClassName("button-option")
 
@@ -206,6 +214,13 @@ proc gameEnd() =
       startConfetti(500, 0, 15)
       victoryHighlight(Mark.Empty) 
       echo "The game has ended in a draw!"
+
+#proc bestMove() {.exportc.} = 
+#  let 
+#    move = getOptimalMove(maxDepth=9)
+#    cells = document.getElementsByClassName("button-option")
+#
+#  cells[move.idxFromRowcol()].click()
 
 let cells = document.getElementsByClassName("button-option")
 
