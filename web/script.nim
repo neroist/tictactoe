@@ -75,25 +75,27 @@ proc minimax(b: Board = board, depth: int = 0, isMaximizing: bool = true, maxDep
     return 0
 
   if isMaximizing:
-    var maxEval = -Inf # set to ridiculusly low value as each score schould maximize
+    var maxEval = -Inf # set to ridiculusly low value so each score maximizes
 
     for row in 0..2:
       for col in 0..2:
         if b[row][col] == Mark.Empty:
           b[row][col] = computer # set our move 
-          var eval = minimax(b, depth + 1, false, max_depth) # run simulation
+          let eval = minimax(b, depth + 1, false, max_depth) # run simulation
           b[row][col] = Mark.Empty # undo move
+
           max_eval = max(max_eval, eval)
     return maxEval
   else:
-    var min_eval = Inf # set to ridiculusly high value as each score schould maximize
+    var min_eval = Inf # set to ridiculusly high value so each score minimizes
 
     for row in 0..2:
       for col in 0..2:
         if b[row][col] == Mark.Empty:
           b[row][col] = player # set player move
-          var eval = minimax(b, depth + 1, true, max_depth) # run simulation
+          let eval = minimax(b, depth + 1, true, max_depth) # run simulation
           b[row][col] = Mark.Empty # undo move
+          
           min_eval = min(min_eval, eval)
     return min_eval
 
