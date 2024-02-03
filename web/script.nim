@@ -135,7 +135,7 @@ proc restart() {.exportc.} =
   for cell in cells:
     cell.innerText = ""
     cell.disabled = false
-    cell.style.color = "#d161ff"
+    cell.style.color = "rgb(209, 97, 255)"
 
   board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
 
