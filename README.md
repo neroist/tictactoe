@@ -62,6 +62,14 @@ For `terminal/tictactoe.nim`, just compiling it and running it with `nim c -r ti
 
 ### Web
 
-For `web/tictactoe.nim` you need just to **transpile the code to JS**, then **visit `index.html`**. You can transpile the JS by running `nim js script.nim` in your terminal. This will result in the creation of a new file named `script.js`, which `index.html` uses. Then just open `index.html` file in a browser and you're done!
+For `web/` you need just to **transpile the code to JS**, then **visit `index.html`**. You can transpile the JS by running `nim js script.nim` in your terminal. This will result in the creation of a new file named `script.js`, which `index.html` uses. Then just open `index.html` file in a browser and you're done!
+
+## Attribution
+
+### Favicon
+
+![`favicon.ico`](./web/imgs/favicon.ico)
+
+[`favicon.ico`](./web/imgs/favicon.ico) (as shown above) is from uxwing.com, and can be found [here](https://uxwing.com/tic-tac-toe-icon/)
 
 ###### Made with ❤️ with Nim
