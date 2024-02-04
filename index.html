@@ -8,6 +8,9 @@
   <meta name="description" content="Play Tic Tac Toe against an AI">
   <meta charset="utf-8">
 
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
   
@@ -37,7 +40,7 @@
     
   <!-- Script -->
   <script src="confetti.min.js"></script>
-  <script src="script.min.js"></script>
+  <script src="script.js"></script>
   <script>
     // no semicolons what !!
 
@@ -45,20 +48,25 @@
     var restartButton = document.getElementById("restart");
 
     document.addEventListener("keypress", (e) => {
-      e = e || window.event;
-      let val = Number(depth.value); // get current value of spinbox as a Number
+      // get current value of spinbox as a Number
+      let val = Number(depth.value); 
 
       if (e.key === "=") { // plus key
-        if ((val + 1) > 8) return; // if incrementing leads to an invalid value, return
-
-        depth.value = (val + 1).toString(); // inc value
+        // if incrementing leads to an invalid value, return
+        if ((val + 1) > 8) return;
+        
+        // inc value
+        depth.value = (val + 1).toString(); 
       } else if (e.key === "-") { 
         if ((val - 1) < 1) return;
 
-        depth.value = (val - 1).toString(); // dec value
+        // dec value
+        depth.value = (val - 1).toString(); 
       } else if (e.key === "r") {
         restartButton.click();
-      }
+      } /* else if (e.key === "B") {
+        bestMove();
+      } */
     });
   </script>
 </body>
