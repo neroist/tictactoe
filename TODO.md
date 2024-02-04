@@ -4,6 +4,8 @@
 * [ ] Implement Alpha-Beta Pruning into `minimax` function
 * [ ] Get a better file structure for this repo
 * [ ] Make the spinbox in `index.html` look better
+* [ ] Add more explanatory comments to code
+* [ ] Explain how minimax algorithm & how the ai chooses a move & such in README
 
 ## PERHAPS
 
