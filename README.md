@@ -22,19 +22,43 @@ Play Tic Tac Toe against minimax ai, built with [Nim](https://nim-lang.org/).
 
 [`web/`](./web/) is the website version of Tic Tac Toe, which is released on Github Pages and can be accessed here: <https://neroist.github.io/tictactoe/>
 
-#### Files
+It contains 3 directories:
+
+* `imgs/`, the image~~s~~ & favicon used in the website are kept here
+* `js/`, the javascript used in the website is contained in here
+* `styles/`, the css styling used by the website is here
+
+#### `imgs/`
+
+* `favicon.ico`
+
+    Favicon of the website. Not sure why you wouldn't know but to explain: a favicon is the icon that appears at the top of a browser tab.
+
+#### `js/`
 
 * `confetti.min.js`
 
     Javascript library to create a confetti effect. Its used for the confetti after an the end of a Tic Tac Toe match. I did not make it, I got it from [this](https://dev.to/official_fire/creating-a-confetti-effect-in-5-minutes-16h3) page, and it seems like someone named "Javier Sosa" created the original code or was involved in its creation. According to [their comment](https://dev.to/official_fire/creating-a-confetti-effect-in-5-minutes-16h3#comment-2553o), this was the original Stack Overflow question: <https://stackoverflow.com/questions/16322869/trying-to-create-a-confetti-effect-in-html5-how-do-i-get-a-different-fill-color>
 
+`script.js`/`script.min.js` is also kept here, when generated. See the `gh-pages` branch, [this](https://github.com/neroist/tictactoe/tree/gh-pages/js) directory.
+
+#### `styles/`
+
+* `style.css`
+
+    The styling for `index.html`.
+
+* `normalize.min.css`
+
+    Stylesheet to make browsers render all elements more consistently.
+
+#### Other files
+
+Other files not kept in a subdirectory.
+
 * `confetti.nim`
 
     Small Nim bindings of the `confetti.min.js` file, used in `script.nim`. Feel free to take and use it for your own projects and such.
-
-* `favicon.ico`
-
-    Favicon of the website. Not sure why you wouldn't know but to explain: a favicon is the icon that appears at the top of a browser tab.
 
 * `index.html`
 
@@ -47,10 +71,6 @@ Play Tic Tac Toe against minimax ai, built with [Nim](https://nim-lang.org/).
 * `script.nim.cfg`
 
     Configuration file for the Nim compiler (when compiling `script.nim`). Sets `release` define flag and sets backend as `js`.
-
-* `style.css`
-
-    The styling for `index.html`.
 
 ## Building
 
