@@ -1,0 +1,52 @@
+name: generate-doc
+run-name: Generate documentation
+
+on: 
+  push:
+    branches:
+      - "main"
+    paths:
+      - "web/**"
+
+jobs:
+  generate-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Nim
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: stable
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Make `public` directory
+        run: |
+          mkdir public
+
+          cp ./web/confetti.min.js public/
+          cp ./web/favicon.ico public/
+          cp ./web/index.html public/
+          cp ./web/style.css public/
+
+      - name: Make script.min.js
+        run: |
+          npm install terser -g
+
+          terser ./web/script.js -o ./public/script.min.js --mangle
+
+      - name: Deploy `public` to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
