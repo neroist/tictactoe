@@ -1,5 +1,5 @@
-name: generate-doc
-run-name: Generate documentation
+name: deploy-to-pages
+run-name: Deploy to Github Pages
 
 on: 
   push:
@@ -35,6 +35,10 @@ jobs:
           cp ./web/favicon.ico public/
           cp ./web/index.html public/
           cp ./web/style.css public/
+      
+      - name: Compile `script.nim`
+        run: |
+          nim js ./web/script.nim
 
       - name: Make script.min.js
         run: |
