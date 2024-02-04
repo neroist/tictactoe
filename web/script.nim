@@ -175,6 +175,7 @@ proc displayBoard(b = board) =
 
   for idx in 0..8: 
     let (row, col) = rowcolFromIdx(idx)
+
     case b[row][col]
     of Mark.X:
       cells[idx].innerText = "X"
