@@ -45,7 +45,7 @@ jobs:
         run: |
           npm install terser -g
 
-          terser ./web/script.js -o ./public/script.min.js --mangle
+          terser ./web/js/script.js -o ./public/js/script.min.js --mangle
 
       - name: Deploy `public` to GitHub Pages
         if: success()
