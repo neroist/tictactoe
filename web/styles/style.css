@@ -45,7 +45,7 @@ html {
 .button-option:hover {
   background-color: #EBEBFF; /* lavender, tan #6E6FB Y= */
 }
-#depth, #depthlabel {
+#depth, #depth-label {
   margin: 1em;
   font-size: 125%; /* 125% Y 1.4em */
   margin-top: 3em;

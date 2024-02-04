@@ -31,10 +31,10 @@ jobs:
         run: |
           mkdir public
 
-          cp ./web/confetti.min.js public/
-          cp ./web/favicon.ico public/
+          cp -r ./js/ public/
+          cp -r ./web/imgs/ public/
+          cp -r ./web/styles/ public/
           cp ./web/index.html public/
-          cp ./web/style.css public/
       
       - name: Compile `script.nim`
         run: |
