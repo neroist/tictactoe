@@ -54,4 +54,12 @@ Play Tic Tac Toe against minimax ai, built with [Nim](https://nim-lang.org/).
 
     The styling for `index.html`.
 
+## Building
+
+Building & compiling this project requires Nim. You can download it here: <https://nim-lang.org/install.html> OR using [choosenim](https://github.com/dom96/choosenim).
+
+For `terminal/tictactoe.nim`, just compiling it and running it with `nim c -r tictactoe.nim` is good enough. This compiles the code to an executable then runs it. Make sure you're in the `terminal/` directory when running that command.
+
+For `web/tictactoe.nim` you need just to **transpile the code to JS**, then **visit `index.html`**. You can transpile the JS by running `nim js script.nim` in your terminal. This will result in the creation of a new file named `script.js`, which `index.html` uses. Then just open `index.html` file in a browser and you're done!
+
 ###### Made with ❤️ with Nim
