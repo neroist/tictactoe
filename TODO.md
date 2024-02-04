@@ -3,6 +3,7 @@
 * [ ] Use [`termui`](https://github.com/jjv360/nim-termui) in `terminal/tictactoe.nim`
 * [ ] Implement Alpha-Beta Pruning into `minimax` function
 * [ ] Get a better file structure for this repo
+* [ ] Make the spinbox in `index.html` look better
 
 ## PERHAPS
 
