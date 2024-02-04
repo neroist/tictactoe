@@ -31,7 +31,7 @@ jobs:
         run: |
           mkdir public
 
-          cp -r ./js/ public/
+          cp -r ./web/js/ public/
           cp -r ./web/imgs/ public/
           cp -r ./web/styles/ public/
           cp ./web/index.html public/
