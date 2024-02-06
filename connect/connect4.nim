@@ -1,5 +1,6 @@
 import std/strutils
 import std/terminal
+import std/os
 
 type
   Piece = enum
@@ -43,7 +44,14 @@ proc emptyCells(g: Grid): int =
       if cell == Blank:
         inc result 
 
-proc makeMove(g: var Grid, piece: Piece, col: int): tuple[row, col: int] {.discardable.} = 
+proc colFilled(col: array[6, Piece]): bool = 
+  result = true
+
+  for piece in col:
+    if piece == Blank:
+      return false
+
+proc makeMove(g: var Grid, piece: Piece, col: int): tuple[col, row: int] {.discardable.} = 
   result.col = col
   
   for cell_idx, cell in g[col]:
@@ -101,6 +109,65 @@ proc display(g: Grid, clear_screen: bool = false) =
     
     stdout.write "\n"
 
+# uses alpha-beta pruning
+proc minimax(g: Grid, depth: int = 0, isMaximizing: bool = true, maxDepth: int, alpha, beta: float): float = 
+  var g = g
+
+  if g.checkWin(player2):
+    return 1 * float(g.emptyCells + 1) # multiply by number of empty cells to
+                                       # incentivise quick wins, add by one
+                                       # so we don't multiply by zero
+  elif g.checkWin(player1):
+    return -1 * float(g.emptyCells + 1)
+  elif g.checkDraw() or depth == maxDepth:
+    return 0
+
+  if isMaximizing:
+    var 
+      maxEval = -Inf # set to ridiculusly low value as each score schould maximize
+      alpha = alpha
+      beta = beta
+
+    for col in 0..6:
+      let (col, row) = g.makeMove(player2, col) # set our move 
+      var eval = minimax(g, depth + 1, false, max_depth, alpha, beta) # run simulation
+      g[col][row] = Blank # undo move
+      max_eval = max(max_eval, eval)
+      if beta <= alpha:
+        break
+    return maxEval
+  else:
+    var min_eval = Inf # set to ridiculusly high value as each score schould maximize
+
+    for col in 0..6:
+      let (col, row) = g.makeMove(player1, col) # set player move
+      var eval = minimax(g, depth + 1, true, max_depth, alpha, beta) # run simulation
+      g[col][row] = Blank # undo move
+      min_eval = min(min_eval, eval)
+      if beta <= alpha:
+        break
+    return min_eval
+
+proc getOptimalMove(g: Grid, maxDepth: int): int = 
+  var 
+    gr = g
+    maxscore: float = -Inf
+
+  for col in 0..6:
+    if g[col].colFilled():
+      # echo "col ", col,  " filled!"
+      continue
+
+    # simulate move & find its score
+    let (co, row) = gr.makeMove(player2, col)
+    let thisscore = minimax(gr, 0, false, maxDepth, -Inf, Inf)
+    gr[co][row] = Blank
+    
+    # check if its better than other moves
+    if thisscore > maxscore:
+      maxscore = thisscore # if so, set the move's score as the max
+      result = co # store the move
+
 proc play() = 
   clear()
 
@@ -134,8 +201,8 @@ proc play() =
     if grid.gameEnded():
       break
     
-    col = parseInt input("What column do you want to play on [p2]? ")
-    grid.makeMove(player2, col - 1)
+    col = grid.getOptimalMove(5)
+    grid.makeMove(player2, col)
     
     grid.display(clear_screen=true)
     echo "\n"
@@ -150,19 +217,5 @@ proc play() =
   else:
     echo "Draw!"
 
-grid.makeMove(Red, 0)
-grid.makeMove(Red, 0)
-grid.makeMove(Red, 0)
-grid.makeMove(Yellow, 0)
-grid.makeMove(Yellow, 1)
-grid.makeMove(Yellow, 1)
-grid.makeMove(Yellow, 1)
-grid.makeMove(Yellow, 2)
-grid.makeMove(Yellow, 2)
-grid.makeMove(Yellow, 3)
-
-grid.display()
-echo grid.checkWin(Yellow)
-
-# when isMainModule:
-#   play()
+when isMainModule:
+  play()
