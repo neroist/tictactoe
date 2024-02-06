@@ -1,0 +1,57 @@
+name: deploy-to-pages
+run-name: Deploy to Github Pages
+
+on: 
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/pages.yml"
+      - "web/**"
+
+jobs:
+  generate-doc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Nim
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: stable
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+
+      - name: Make `public` directory
+        run: |
+          mkdir public
+
+          cp -r ./web/js/ public/
+          cp -r ./web/imgs/ public/
+          cp -r ./web/styles/ public/
+          cp ./web/index.html public/
+      
+      - name: Compile `script.nim`
+        run: |
+          nim js ./web/script.nim
+
+      - name: Make script.min.js
+        run: |
+          npm install terser -g
+
+          terser ./web/js/script.js -o ./public/js/script.min.js --mangle
+
+      - name: Deploy `public` to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        

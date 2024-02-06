@@ -75,35 +75,34 @@ proc minimax(b: Board = board, depth: int = 0, isMaximizing: bool = true, maxDep
     return 0
 
   if isMaximizing:
-    var maxEval = -Inf # set to ridiculusly low value as each score schould maximize
+    var maxEval = -Inf # set to ridiculusly low value so each score maximizes
 
     for row in 0..2:
       for col in 0..2:
         if b[row][col] == Mark.Empty:
           b[row][col] = computer # set our move 
-          var eval = minimax(b, depth + 1, false, max_depth) # run simulation
+          let eval = minimax(b, depth + 1, false, max_depth) # run simulation
           b[row][col] = Mark.Empty # undo move
+
           max_eval = max(max_eval, eval)
     return maxEval
   else:
-    var min_eval = Inf # set to ridiculusly high value as each score schould maximize
+    var min_eval = Inf # set to ridiculusly high value so each score minimizes
 
     for row in 0..2:
       for col in 0..2:
         if b[row][col] == Mark.Empty:
           b[row][col] = player # set player move
-          var eval = minimax(b, depth + 1, true, max_depth) # run simulation
+          let eval = minimax(b, depth + 1, true, max_depth) # run simulation
           b[row][col] = Mark.Empty # undo move
+
           min_eval = min(min_eval, eval)
     return min_eval
 
-proc getOptimalMove(b = board, maxDepth: int, mark = computer): tuple[row, col: int] = 
+proc getOptimalMove(b = board, maxDepth: int): tuple[row, col: int] =   
   var 
     bo = b
-    pcI = computer
     maxscore: float = -Inf
-
-  computer = mark
 
   for row in 0..2:
     for col in 0..2:
@@ -120,8 +119,6 @@ proc getOptimalMove(b = board, maxDepth: int, mark = computer): tuple[row, col: 
       if thisscore > maxscore:
         maxscore = thisscore # if so, set the move's score as the max
         result = (row, col) # store the move
-  
-  computer = pcI
 
 proc gameEnded(): bool =
   board.checkWin(computer) or board.checkWin(player) or board.checkDraw()
@@ -138,7 +135,7 @@ proc restart() {.exportc.} =
   for cell in cells:
     cell.innerText = ""
     cell.disabled = false
-    cell.style.color = "#d161ff"
+    cell.style.color = "rgb(209, 97, 255)"
 
   board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
 
@@ -150,6 +147,14 @@ proc rowcolFromIdx(idx: int): (int, int) =
                  # 0 < idx - x < 3
   else: # all other values are in the third row
     (2, idx - 6)
+
+#proc idxFromRowcol(rowcol: tuple[row, col: int]): int =
+#  if rowcol.row == 0: 
+#    rowcol.col
+#  elif rowcol.row == 1:
+#    rowcol.col + 3
+#  else:
+#    rowcol.col + 6
 
 proc updateInternalBoard(b: var Board = board) = 
   let cells = document.getElementsByClassName("button-option")
@@ -170,6 +175,7 @@ proc displayBoard(b = board) =
 
   for idx in 0..8: 
     let (row, col) = rowcolFromIdx(idx)
+
     case b[row][col]
     of Mark.X:
       cells[idx].innerText = "X"
@@ -210,6 +216,13 @@ proc gameEnd() =
       victoryHighlight(Mark.Empty) 
       echo "The game has ended in a draw!"
 
+#proc bestMove() {.exportc.} = 
+#  let 
+#    move = getOptimalMove(maxDepth=9)
+#    cells = document.getElementsByClassName("button-option")
+#
+#  cells[move.idxFromRowcol()].click()
+
 let cells = document.getElementsByClassName("button-option")
 
 for cell in cells:
@@ -235,5 +248,4 @@ for cell in cells:
 
       gameEnd() # check if game ended after ai move
 
-    gameEnd() # check if game ended agter human move
-  
+    gameEnd() # check if game ended after human move

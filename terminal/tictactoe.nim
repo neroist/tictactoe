@@ -61,6 +61,7 @@ proc checkDraw(b = board): bool =
 
 proc minimax(b: array[3, array[3, Mark]] = board, depth: int = 0, isMaximizing: bool = true, maxDepth: int): float = 
   var b = b
+
   if b.checkWin(computer):
     return 1 * float(b.emptyCells + 1) # multiply by number of empty cells to
                                        # incentivise quick wins, add by one

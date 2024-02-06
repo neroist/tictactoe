@@ -1,2 +1,3 @@
-web/confetti.min.js
-web/script.js
+web/js/script.js
+
+*.exe
