@@ -6,6 +6,7 @@
 * [ ] Make the spinbox in `index.html` look better
 * [ ] Add more explanatory comments to code
 * [ ] Explain minimax algorithm & how the ai chooses a move & such in README
+* [ ] Collect data on wins, losses, draws, etc.
 
 ## PERHAPS
 
