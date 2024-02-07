@@ -1,6 +1,5 @@
 import std/strutils
 import std/terminal
-import std/os
 
 type
   Piece = enum
