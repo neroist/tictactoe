@@ -12,3 +12,4 @@
 
 * [ ] Make a TUI version of `terminal/tictactoe.nim` (UI libraries: [`nimwave`](https://github.com/ansiwave/nimwave), [`illwill`](https://github.com/johnnovak/illwill))
 * [ ] Make versions for Tic Tac Toe with different dimensions (e.g. 4x4, 5x5)
+* [x] Make a version for connect 4 ([`terminal/connect4`](./terminal/connect4.nim))
