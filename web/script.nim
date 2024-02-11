@@ -129,6 +129,15 @@ proc disableBoard() =
   for cell in cells:
     cell.disabled = true
 
+proc enableBoard() =
+  ## enable all empty cells
+
+  let cells = document.getElementsByClassName("button-option")
+
+  for cell in cells:
+    if cell.innerText == "":
+      cell.disabled = false
+
 proc restart() {.exportc.} =
   let cells = document.getElementsByClassName("button-option")
 
@@ -230,9 +239,11 @@ for cell in cells:
     if ev.target.innerText != "": return # if cell is filled, return
 
     let max_depth = parseInt($document.getElementById("depth").value)
+    
+    disableBoard() # lock board when player has made move
 
     ev.target.innerText = cstring $player
-    updateInternalBoard() 
+    updateInternalBoard()
     echo board
 
     ev.target.disabled = true # set button as disabled after move
@@ -245,6 +256,8 @@ for cell in cells:
       displayBoard(board)
 
       echo board
+
+      enableBoard() # when the ai finishes playing, unlock the board
 
       gameEnd() # check if game ended after ai move
 
