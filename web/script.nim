@@ -248,7 +248,7 @@ for cell in cells:
 
     ev.target.disabled = true # set button as disabled after move
 
-    setTimeout(400) do ():
+    setTimeout(300) do ():
       if gameEnded(): return # make sure ai doesnt move after game is done
       let move = getOptimalMove(maxDepth = max_depth)
 
