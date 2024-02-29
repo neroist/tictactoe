@@ -134,6 +134,13 @@ template gameEnd() =
     board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
     continue
   
+# - have two bots: 
+#   - one that uses minimax algorithm
+#   - and one that plays random moves
+# - have the random bot play 19683 games against each minimax bot of depths 1-8
+#   - 19683 is the number of possible tic tac toe boards, disregarding rules of the game
+# - collect data from these games
+#   - e.g. time taken to complete the games, and the loss rate of the minimax ai 
 
 for depth in 1..8:
   let time = cpuTime()
@@ -161,6 +168,7 @@ for depth in 1..8:
       "draws": draws,
       "loss_rate": ai_loses / games,
       "win_rate": (games - ai_loses - draws) / games,
+      "draw_rate": draws / games,
       "time_taken": cpuTime() - time
     }
 
@@ -171,4 +179,3 @@ for depth in 1..8:
   rand_loses = 0
 
 writeFile("./data.json", data.pretty(indent=2))
-
