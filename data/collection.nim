@@ -153,15 +153,16 @@ for depth in 1..8:
     let (r_ai, c_ai) = board.getAiMove(depth)
     board[r_ai][c_ai] = ai
 
-  data.add(%* {
-    "depth": depth,
-    "wins": games - ai_loses,
-    "losses": ai_loses,
-    "draws": draws,
-    "loss_rate": ai_loses / games,
-    "win_rate": (games - ai_loses) / games,
-    "time_taken": cpuTime() - time
-  })
+  data.add:
+    %* {
+      "depth": depth,
+      "wins": games - ai_loses - draws,
+      "losses": ai_loses,
+      "draws": draws,
+      "loss_rate": ai_loses / games,
+      "win_rate": (games - ai_loses - draws) / games,
+      "time_taken": cpuTime() - time
+    }
 
   echo data.pretty(indent=2)
 
