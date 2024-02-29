@@ -60,6 +60,9 @@ proc makeMove(g: var Grid, piece: Piece, col: int): tuple[col, row: int] {.disca
   g[col][result.row] = piece
 
 proc checkWin(g: Grid, piece: Piece): bool =
+  if g.emptyCells > 47: # there needs to be atleast 7 moves before a win
+    return false
+
   # row win
   for col in 0..2: # only check first 3 cols
     for row in 0..5: # check all rows
