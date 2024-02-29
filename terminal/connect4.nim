@@ -1,5 +1,8 @@
 import std/strutils
 import std/terminal
+import std/random
+
+randomize()
 
 type
   Piece = enum
@@ -151,6 +154,9 @@ proc minimax(g: Grid, depth: int = 0, isMaximizing: bool = true, maxDepth: int, 
     return min_eval
 
 proc getOptimalMove(g: Grid, maxDepth: int): int = 
+  if g.emptyCells in 51..53:
+    return rand(0..6)
+
   var 
     gr = g
     maxscore: float = -Inf
