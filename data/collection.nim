@@ -178,7 +178,7 @@ template gameEnd() =
 
 # PINI
 # Increasing the depth of the AI caused it to win more games, but also use much much more time.
-# SImilarly, decreasing the depth caused the AI to win less games, and use less time
+# Similarly, decreasing the depth caused the AI to win less games, and use less time
 
 for depth in 1..8:
   let time = cpuTime()
