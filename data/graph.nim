@@ -68,7 +68,7 @@ let
 
 block:
   let layout = newLayout("Wins, Draws, Losses")
-  layout.yaxis.ty = AxisType.Log
+  # layout.yaxis.ty = AxisType.Log
   
   let plot = Plot[int](layout: layout, traces: @[dWins, dDraws, dLosses])
   plot.show()
@@ -77,7 +77,7 @@ block:
 
 block:
   let layout = newLayout("Win Rate %, Draw Rate %, Loss Rate %")
-  layout.yaxis.ty = AxisType.Log
+  # layout.yaxis.ty = AxisType.Log
 
   let traces = @[dWinRate, dDrawRate, dLossRate]
 
