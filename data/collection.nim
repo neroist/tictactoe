@@ -157,9 +157,7 @@ template gameEnd() =
 # the depth of the minimax bot, it will start from 1 and go up to 8
 #
 # KILI
-#
 # the loss rate of the minimax bot, and how much time it took for it to complete 19683 matches
-
 
 # NASIN
 # - have two bots: 
