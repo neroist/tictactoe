@@ -43,6 +43,7 @@ template gameEnd() =
     continue
   elif board.checkWin(rnd):
     inc ai_loses
+
     when not defined(noProgressBar):
       progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
 
@@ -50,6 +51,7 @@ template gameEnd() =
     continue
   elif board.checkDraw():
     inc draws
+    
     when not defined(noProgressBar):
       progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
 
@@ -96,6 +98,7 @@ proc depthRun(depth: int): JsonNode =
 
   when not defined(noProgressBar):
     progress.complete("Finished! Depth: $#; Time: $#" % [$depth, $trunc(cpuTime() - time, 3)])
+  else:
     echo result
 
 # SONA WILE
