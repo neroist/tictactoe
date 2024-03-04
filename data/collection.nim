@@ -60,7 +60,7 @@ template gameEnd() =
 
 proc depthRun(depth: int): JsonNode =
   var
-    board: array[3, array[3, Mark]]
+    board: Board
     ai_loses, draws: int
   
   let 
