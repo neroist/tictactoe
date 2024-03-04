@@ -145,14 +145,16 @@ proc depthRun(depth: int): JsonNode =
 # Increasing the depth of the AI caused it to win more games, but also use much much more time.
 # Similarly, decreasing the depth caused the AI to win less games, and use less time
 
-let time = cpuTime()
+var time = cpuTime()
 
 for depth in 1..8:
   data.add depthRun(depth)
 
+time = cpuTime() - time
+
 echo "" # newline
 
-termuiLabel("Total time taken (in seconds)", $(cpuTime() - time))
-termuiLabel("Total time taken (in minutes)", $((cpuTime() - time) / 60))
+termuiLabel("Total time taken (in seconds)", $(time))
+termuiLabel("Total time taken (in minutes)", $(time / 60))
 
 writeFile(thisDir & "data.json", $data)
