@@ -8,13 +8,14 @@ import termui
 
 import ../common/common
 
-const thisDir = currentSourcePath() & "/../"
+const 
+  thisDir = currentSourcePath() & "/../"
+  games {.intdefine.}: int = 19683
 
 var
   computer: Mark = Mark.O
   rnd: Mark = Mark.X
 
-  games: int = 19683
   data: JsonNode = newJArray()
 
 proc getRandomMove(b: Board): tuple[row, col: int] = 
@@ -30,38 +31,40 @@ proc getRandomMove(b: Board): tuple[row, col: int] =
   return moves.sample()
 
 proc trunc(num: float, to: int): string =
+  ## Trunicate float to `to` decimal points
+
   let parts = num.splitDecimal()
 
   $int(parts.intpart) & "." & ($parts.floatpart & "0".repeat(to))[2..(to + 1)]
 
 template gameEnd() =
+
+  template procedure() =
+    # update the progess bar, when enabled
+    when not defined(noProgressBar):
+      progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
+
+    # reset board
+    board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
+    
+    # continue on with next game
+    continue
+    
   if board.checkWin(computer):
-    when not defined(noProgressBar):
-      progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
-
-    board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
-    continue
+    procedure()
   elif board.checkWin(rnd):
-    inc ai_loses
+    inc ai_losses
 
-    when not defined(noProgressBar):
-      progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
-
-    board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
-    continue
+    procedure()
   elif board.checkDraw():
     inc draws
-    
-    when not defined(noProgressBar):
-      progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
 
-    board = [[Empty, Empty, Empty], [Empty, Empty, Empty], [Empty, Empty, Empty]]
-    continue
+    procedure()
 
 proc depthRun(depth: int): JsonNode =
   var
     board: Board
-    ai_loses, draws: int
+    ai_losses, draws: int
   
   let 
     time = cpuTime()
@@ -87,13 +90,14 @@ proc depthRun(depth: int): JsonNode =
 
   result = %* {
     "depth": depth,
-    "wins": games - ai_loses - draws,
-    "losses": ai_loses,
+    "wins": games - ai_losses - draws,
+    "losses": ai_losses,
     "draws": draws,
-    "loss_rate": ai_loses / games,
-    "win_rate": (games - ai_loses - draws) / games,
+    "loss_rate": ai_losses / games,
+    "win_rate": (games - ai_losses - draws) / games,
     "draw_rate": draws / games,
-    "time_taken": cpuTime() - time
+    "time_taken": cpuTime() - time,
+    "games": games
   }
 
   when not defined(noProgressBar):

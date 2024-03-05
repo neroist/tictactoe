@@ -79,10 +79,7 @@ block:
   let layout = newLayout("Win Rate %, Draw Rate %, Loss Rate %")
   # layout.yaxis.ty = AxisType.Log
 
-  let traces = @[dWinRate, dDrawRate, dLossRate]
-
-  let plot = Plot[float](layout: layout, traces: traces)
-
+  let plot = Plot[float](layout: layout, traces: @[dWinRate, dDrawRate, dLossRate])
   plot.show()
 
 # Single Plot - Time Taken
