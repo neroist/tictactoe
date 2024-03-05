@@ -40,6 +40,7 @@ proc trunc(num: float, to: int): string =
 template gameEnd() =
 
   template procedure() =
+    
     # update the progess bar, when enabled
     when not defined(noProgressBar):
       progress.update(i / games, fmt % [$i, $games, $depth, $trunc(cpuTime() - time, 3)])
