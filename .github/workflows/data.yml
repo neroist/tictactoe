@@ -6,7 +6,7 @@ on:
     branches:
       - "main"
     paths:
-      - ".github/workflows/pages.yml"
+      - ".github/workflows/data.yml"
       - "data/**"
   workflow_dispatch:
 
