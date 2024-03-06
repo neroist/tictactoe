@@ -4,7 +4,7 @@ import std/times
 import std/json
 import std/math
 
-import termui
+import termui # https://github.com/neroist/nim-termui
 
 import ../common/common
 
