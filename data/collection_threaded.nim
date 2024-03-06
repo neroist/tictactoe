@@ -118,5 +118,4 @@ echo "" # newline
 termuiLabel("Total time taken (in seconds)", $(time))
 termuiLabel("Total time taken (in minutes)", $(time / 60))
 
-when false:
-  writeFile(thisDir / "data.json", $data)
+writeFile(thisDir / "data.json", $data)
