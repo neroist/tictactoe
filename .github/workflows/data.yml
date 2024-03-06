@@ -1,0 +1,35 @@
+name: collect-data
+run-name: Run data collection
+
+on: 
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/pages.yml"
+      - "data/**"
+  workflow_dispatch:
+
+jobs:
+  collection:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Nim
+        uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: stable
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run `collection_threaded.nim`
+        run: |
+          cd data
+
+          nim r collection_threaded.nim
