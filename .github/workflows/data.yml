@@ -32,5 +32,5 @@ jobs:
         run: |
           cd data
 
-          nimble install -y https://github.com/neroist/nim-termui#head
+          nimble install -y https://github.com/neroist/nim-termui@#head
           nim r collection_threaded.nim
