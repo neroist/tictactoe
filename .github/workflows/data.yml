@@ -29,6 +29,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run `collection_threaded.nim`
+        timeout-minutes: 120
         run: |
           cd data
 
