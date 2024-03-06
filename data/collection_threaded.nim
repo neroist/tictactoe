@@ -105,7 +105,7 @@ proc depthRun(depth: int) {.thread.} =
 
   dataPtr = addr res
 
-  echo res.pretty
+  echo res[^1].pretty
 
 for depth in 1..max_depth:
   createThread threads[depth - 1], depthRun, depth
@@ -118,4 +118,5 @@ echo "" # newline
 termuiLabel("Total time taken (in seconds)", $(time))
 termuiLabel("Total time taken (in minutes)", $(time / 60))
 
-writeFile(thisDir / "data.json", $data)
+when false:
+  writeFile(thisDir / "data.json", $data)
