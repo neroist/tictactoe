@@ -10,7 +10,9 @@ import ../common/common
 
 const 
   thisDir = currentSourcePath() & "/../"
+
   games {.intdefine.}: int = 19683
+  max_depth {.intdefine.}: int = 8
 
 var
   computer: Mark = Mark.O
@@ -106,53 +108,9 @@ proc depthRun(depth: int): JsonNode =
   else:
     echo result
 
-# SONA WILE
-# How does altering the maximum depth of the Minimax algorithm impact how the AI plays
-
-# PILIN MI
-# altering the maximum depth of the Minimax algorithm will cause it to play more powerfully,
-# winning more games and losing less. However, it will also cause the AI to take more time
-# depending on whether the depth was increased or not
-
-# IJO KEPEKEN
-# this program, all the files in this directory
-
-# IJO INSA
-# 
-# MA ONA
-# the two bots play 19683 games, a total of 157464 matches
-# compiled without any additional compiler flags, on Win 11 intel i5 machine, Nim 2.0
-# board starts blank 
-# random bot always starts off first
-# 
-# IJO ANTE
-# the depth of the minimax bot, it will start from 1 and go up to 8
-#
-# KILI
-# the loss rate of the minimax bot, and how much time it took for it to complete 19683 matches
-
-# NASIN
-# - have two bots: 
-#   - one which uses minimax algorithm
-#   - and another that plays random moves
-# - initiate 19683 games, in which each minimax bot of depths 1-8 plays against the random bot
-#   - 19683 is the number of possible tic tac toe boards, disregarding rules of the game
-# - collect data from these matches
-#   - e.g. time taken to complete the games, and the loss rate of the minimax ai
-#
-# This will help us determine how altering the maximum depth of the AI affects its gameplay.
-# we can analyze and compare the data from the games of AIs of varying depths
-
-# SONA 
-# see data.json and attached graphs
-
-# PINI
-# Increasing the depth of the AI caused it to win more games, but also use much much more time.
-# Similarly, decreasing the depth caused the AI to win less games, and use less time
-
 var time = cpuTime()
 
-for depth in 1..8:
+for depth in 1..(max_depth):
   data.add depthRun(depth)
 
 time = cpuTime() - time

@@ -12,7 +12,7 @@ const
   thisDir: string = currentSourcePath() & "/../"
 
   games {.intdefine.}: int = 19683
-  max_depth {.intdefine.}: int = 8
+  maxDepth {.intdefine.}: int = 8
 
 var
   computer: Mark = Mark.O
