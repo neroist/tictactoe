@@ -3,13 +3,14 @@ import std/random
 import std/times
 import std/json
 import std/math
+import std/os
 
-import termui # https://github.com/neroist/nim-termui
+import termui # https://github.com/neroist/nim-termui@#head
 
 import ../common/common
 
 const 
-  thisDir: string = currentSourcePath() & "/../"
+  thisDir: string = currentSourcePath().parentDir()
 
   games {.intdefine.}: int = 19683
   maxDepth {.intdefine.}: int = 8
@@ -117,4 +118,4 @@ echo "" # newline
 termuiLabel("Total time taken (in seconds)", $(time))
 termuiLabel("Total time taken (in minutes)", $(time / 60))
 
-writeFile(thisDir & "data.json", $data)
+writeFile(thisDir / "data.json", $data)

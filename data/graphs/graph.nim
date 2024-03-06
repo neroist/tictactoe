@@ -1,8 +1,12 @@
 import std/sequtils
 import std/json
+import std/os
 
 import plotly
 import chroma
+
+const
+  this_dir = currentSourcePath().parentDir()
 
 var
   loss_rates, win_rates, draw_rates, time_taken: seq[float]
@@ -10,7 +14,7 @@ var
 
   depths: seq[int] = @[1, 2, 3, 4, 5, 6, 7, 8]
 
-for obj in parseFile(currentSourcePath() & "/../data.json"):
+for obj in parseFile(this_dir /../ "data.json"):
   loss_rates.add obj["loss_rate"].getFloat()
   win_rates.add obj["win_rate"].getFloat()
   draw_rates.add obj["draw_rate"].getFloat()

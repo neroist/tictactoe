@@ -3,7 +3,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-with open("./data.json", "r") as file:
+from pathlib import Path
+
+this_dir = Path(__file__).resolve().parent
+
+with open(str(this_dir) + "/../data.json", "r") as file:
     data = json.load(file)
 
 depths = [i for i in range(1, 9)]
